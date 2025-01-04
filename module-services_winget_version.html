@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: core/base-service/base</title>
+    <title>JSDoc: Module: services/winget/version</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: core/base-service/base</h1>
+    <h1 class="page-title">Module: services/winget/version</h1>
 
     
 
@@ -33,6 +33,9 @@
 <article>
     <div class="container-overview">
     
+        
+            <div class="description"><p>Comparing versions with winget's version comparator.</p>
+<p>See https://github.com/microsoft/winget-cli/blob/ae566c7bf21cfcc75be7ec30e4036a30eede8396/src/AppInstallerSharedLib/Versions.cpp for original implementation.</p></div>
         
 
         
@@ -67,7 +70,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core_base-service_base.js.html">core/base-service/base.js</a>, <a href="core_base-service_base.js.html#line1">line 1</a>
+        <a href="services_winget_version.js.html">services/winget/version.js</a>, <a href="services_winget_version.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -88,13 +91,6 @@
     
 
     
-        <h3 class="subsection-title">Classes</h3>
-
-        <dl>
-            <dt><a href="module-core_base-service_base-BaseService.html">BaseService</a></dt>
-            <dd></dd>
-        </dl>
-    
 
     
 
@@ -105,38 +101,37 @@
     
 
     
-
-    
-        <h3 class="subsection-title">Type Definitions</h3>
+        <h3 class="subsection-title">Methods</h3>
 
         
-                
-<h4 class="name" id="~Auth">Auth</h4>
-
-
-
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
             
-<span class="param-type">object</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
 
     
 
-<table class="props">
+    
+    <h4 class="name" id="~compareVersion"><span class="type-signature">(inner) </span>compareVersion<span class="signature">(v1, v2)</span><span class="type-signature"> &rarr; {number}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Compares two strings representing version numbers lexicographically and returns an integer value.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
     <thead>
     <tr>
         
@@ -158,7 +153,7 @@
 
         <tr>
             
-                <td class="name"><code>userKey</code></td>
+                <td class="name"><code>v1</code></td>
             
 
             <td class="type">
@@ -174,14 +169,14 @@
 
             
 
-            <td class="description last"><p>(Optional) The key from <code>privateConfig</code> to use as the username.</p></td>
+            <td class="description last"><p>The first version to compare</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>passKey</code></td>
+                <td class="name"><code>v2</code></td>
             
 
             <td class="type">
@@ -197,37 +192,14 @@
 
             
 
-            <td class="description last"><p>(Optional) The key from <code>privateConfig</code> to use as the password.
-If auth is configured, either <code>userKey</code> or <code>passKey</code> is required.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>isRequired</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>(Optional) If <code>true</code>, the service will return <code>NotFound</code> unless the
-configured credentials are present.</p></td>
+            <td class="description last"><p>The second version to compare</p></td>
         </tr>
 
     
     </tbody>
 </table>
+
+
 
 
 
@@ -261,7 +233,7 @@ configured credentials are present.</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core_base-service_base.js.html">core/base-service/base.js</a>, <a href="core_base-service_base.js.html#line579">line 579</a>
+        <a href="services_winget_version.js.html">services/winget/version.js</a>, <a href="services_winget_version.js.html#line18">line 18</a>
     </li></ul></dd>
     
 
@@ -277,257 +249,76 @@ configured credentials are present.</p></td>
 
 
 
-            
-                
-<h4 class="name" id="~Badge">Badge</h4>
 
 
 
 
-<div class="description">
-    <p>Badge Object, validated against serviceDataSchema</p>
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>-1 if v1 is smaller than v2, 1 if v1 is larger than v2, 0 if v1 and v2 are equal</p>
 </div>
 
 
 
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">object</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
-    <thead>
-    <tr>
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
         
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>isError</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>(Optional)</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>label</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>(Optional)</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>message</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-|
-
 <span class="param-type">number</span>
 
 
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>color</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>(Optional)</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>link</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;string></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>(Optional)</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core_base-service_base.js.html">core/base-service/base.js</a>, <a href="core_base-service_base.js.html#line531">line 531</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
+    </dd>
 </dl>
 
+    
 
 
 
 
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>compareVersion('1.2.3', '1.2.4') // returns -1 because numeric part of first version is smaller than the numeric part of second version.</code></pre>
 
+
+
+        
             
-                
-<h4 class="name" id="~DefaultBadgeData">DefaultBadgeData</h4>
 
+    
+
+    
+    <h4 class="name" id="~compareVersionPart"><span class="type-signature">(inner) </span>compareVersionPart<span class="signature">(part1, part2)</span><span class="type-signature"> &rarr; {number}</span></h4>
+    
+
+    
 
 
 
 <div class="description">
-    <p>Default badge properties, validated against defaultBadgeDataSchema</p>
+    <p>Compares two strings representing version number parts lexicographically and returns an integer value.</p>
 </div>
 
 
 
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">object</span>
-
-
-        </li>
-    </ul>
 
 
 
 
 
-    <h5 class="subsection-title">Properties:</h5>
 
+    <h5>Parameters:</h5>
     
 
-<table class="props">
+<table class="params">
     <thead>
     <tr>
         
@@ -549,7 +340,7 @@ configured credentials are present.</p></td>
 
         <tr>
             
-                <td class="name"><code>label</code></td>
+                <td class="name"><code>part1</code></td>
             
 
             <td class="type">
@@ -565,14 +356,14 @@ configured credentials are present.</p></td>
 
             
 
-            <td class="description last"><p>(Optional)</p></td>
+            <td class="description last"><p>The first version part to compare</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>color</code></td>
+                <td class="name"><code>part2</code></td>
             
 
             <td class="type">
@@ -588,58 +379,14 @@ configured credentials are present.</p></td>
 
             
 
-            <td class="description last"><p>(Optional)</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>labelColor</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>(Optional)</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>namedLogo</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>(Optional)</p></td>
+            <td class="description last"><p>The second version part to compare</p></td>
         </tr>
 
     
     </tbody>
 </table>
+
+
 
 
 
@@ -673,7 +420,7 @@ configured credentials are present.</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core_base-service_base.js.html">core/base-service/base.js</a>, <a href="core_base-service_base.js.html#line521">line 521</a>
+        <a href="services_winget_version.js.html">services/winget/version.js</a>, <a href="services_winget_version.js.html#line116">line 116</a>
     </li></ul></dd>
     
 
@@ -689,34 +436,76 @@ configured credentials are present.</p></td>
 
 
 
-            
-                
-<h4 class="name" id="~Route">Route</h4>
 
 
 
 
 
 
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">object</span>
-
-
-        </li>
-    </ul>
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>-1 if part1 is smaller than part2, 1 if part1 is larger than part2, 0 if part1 and part2 are equal</p>
+</div>
 
 
-    <h5 class="subsection-title">Properties:</h5>
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
 
     
 
-<table class="props">
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>compareVersionPart('3', '4') // returns -1 because numeric part of first part is smaller than the numeric part of second part.</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~latest"><span class="type-signature">(inner) </span>latest<span class="signature">(versions)</span><span class="type-signature"> &rarr; {string|undefined}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Finds the largest version number lexicographically from an array of strings representing version numbers and returns it as a string.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
     <thead>
     <tr>
         
@@ -738,79 +527,7 @@ configured credentials are present.</p></td>
 
         <tr>
             
-                <td class="name"><code>base</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>(Optional) The base path of the routes for this service.
-This is used as a prefix.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>pattern</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>A path-to-regexp pattern defining the route pattern and param names
-See <a href="https://www.npmjs.com/package/path-to-regexp">https://www.npmjs.com/package/path-to-regexp</a></p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>format</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">RegExp</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Deprecated: Regular expression to use for routes for this service's badges
-Use <code>pattern</code> instead</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>capture</code></td>
+                <td class="name"><code>versions</code></td>
             
 
             <td class="type">
@@ -826,55 +543,14 @@ Use <code>pattern</code> instead</p></td>
 
             
 
-            <td class="description last"><p>Deprecated: Array of names for the capture groups in the regular
-expression. The handler will be passed an object containing
-the matches.
-Use <code>pattern</code> instead</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>queryParamSchema</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Joi.object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>(Optional) A Joi schema (<code>Joi.object({ ... }).required()</code>)
-for the query param object. If you know a parameter
-will never receive a numeric string, you can use
-<code>Joi.string()</code>. Because of quirks in Scoutcamp and Joi,
-alphanumeric strings should be declared using
-<code>Joi.alternatives().try(Joi.string(), Joi.number())</code>,
-otherwise a value like <code>?success_color=999</code> will fail.
-A parameter requiring a numeric string can use
-<code>Joi.number()</code>. A parameter that receives only non-numeric
-strings can use <code>Joi.string()</code>. A parameter that never
-receives numeric can use <code>Joi.string()</code>. A boolean
-parameter should use <code>Joi.equal('')</code> and will receive an
-empty string on e.g. <code>?compact_message</code> and undefined
-when the parameter is absent. In the OpenApi definitions,
-this type of param should be documented as
-queryParam({
-name: 'compact_message', schema: { type: 'boolean' }, example: null
-})</p></td>
+            <td class="description last"><p>The array of version numbers to compare</p></td>
         </tr>
 
     
     </tbody>
 </table>
+
+
 
 
 
@@ -908,7 +584,7 @@ name: 'compact_message', schema: { type: 'boolean' }, example: null
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core_base-service_base.js.html">core/base-service/base.js</a>, <a href="core_base-service_base.js.html#line542">line 542</a>
+        <a href="services_winget_version.js.html">services/winget/version.js</a>, <a href="services_winget_version.js.html#line157">line 157</a>
     </li></ul></dd>
     
 
@@ -924,7 +600,351 @@ name: 'compact_message', schema: { type: 'boolean' }, example: null
 
 
 
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The largest version number as a string, or undefined if the array is empty</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+|
+
+<span class="param-type">undefined</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>latest(['1.2.3', '1.2.4', '1.3', '2.0']) // returns '2.0' because it is the largest version number.
+latest(['1.2.3', '1.2.4', '1.3-alpha', '2.0-beta']) // returns '2.0-beta'. there is no special handling for pre-release versions.</code></pre>
+
+
+
+        
             
+
+    
+
+    
+    <h4 class="name" id="~trimLastZeros"><span class="type-signature">(inner) </span>trimLastZeros<span class="signature">(parts)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Removes all trailing zeros from a version number part array.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>parts</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>parts</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="services_winget_version.js.html">services/winget/version.js</a>, <a href="services_winget_version.js.html#line101">line 101</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~trimPrefix"><span class="type-signature">(inner) </span>trimPrefix<span class="signature">(version)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Removes all leading non-digit characters from a version number string
+if there is a digit before the split character, or no split characters exist.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>version</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The version number string to trim</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="services_winget_version.js.html">services/winget/version.js</a>, <a href="services_winget_version.js.html#line83">line 83</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The version number string with all leading non-digit characters removed</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+    
+
     
 
     

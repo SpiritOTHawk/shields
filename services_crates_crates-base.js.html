@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: services/website-status.js</title>
+    <title>JSDoc: Source: services/crates/crates-base.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: services/website-status.js</h1>
+    <h1 class="page-title">Source: services/crates/crates-base.js</h1>
 
     
 
@@ -26,71 +26,93 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Commonly used functions and utilities for tasks related to website status.
- *
- * @module
- */
+            <pre class="prettyprint source linenums"><code>import Joi from 'joi'
+import { nonNegativeInteger } from '../validators.js'
+import { BaseJsonService, InvalidResponse } from '../index.js'
 
-import Joi from 'joi'
-import { queryParams as qP } from './index.js'
+const versionSchema = Joi.object({
+  downloads: nonNegativeInteger,
+  crate_size: nonNegativeInteger,
+  num: Joi.string().required(),
+  license: Joi.string().required().allow(null),
+  rust_version: Joi.string().allow(null),
+})
 
-/**
- * Joi schema for validating query params.
- * Checks if the query params object has valid up_message, down_message, up_color and down_color properties.
- *
- * @type {Joi}
- */
-const queryParamSchema = Joi.object({
-  up_message: Joi.string(),
-  down_message: Joi.string(),
-  up_color: Joi.alternatives(Joi.string(), Joi.number()),
-  down_color: Joi.alternatives(Joi.string(), Joi.number()),
+const crateResponseSchema = Joi.object({
+  crate: Joi.object({
+    downloads: nonNegativeInteger,
+    recent_downloads: nonNegativeInteger.allow(null),
+    max_version: Joi.string().required(),
+  }).required(),
+  versions: Joi.array().items(versionSchema).min(1).required(),
 }).required()
 
-/**
- * Array of OpenAPI Parameter Objects describing the
- * up_message, down_message, up_color and down_color
- * query params
- *
- * @type {Array.&lt;module:core/base-service/openapi~OpenApiParam>}
- */
-const queryParams = qP(
-  { name: 'up_message', example: 'online' },
-  { name: 'up_color', example: 'blue' },
-  { name: 'down_message', example: 'offline' },
-  { name: 'down_color', example: 'lightgrey' },
-)
+const versionResponseSchema = Joi.object({
+  version: versionSchema.required(),
+}).required()
 
-/**
- * Creates a badge object that displays information about website status.
- *
- * @param {object} options - The options for rendering the status
- * @param {boolean} options.isUp - Whether the website or service is up or down
- * @param {string} [options.upMessage='up'] - The message to display when the website or service is up
- * @param {string} [options.downMessage='down'] - The message to display when the website or service is down
- * @param {string} [options.upColor='brightgreen'] - The color to use when the website or service is up
- * @param {string} [options.downColor='red'] - The color to use when the website or service is down
- * @returns {object} An object with a message and a color property
- * @example
- * renderWebsiteStatus({ isUp: true }) // returns { message: 'up', color: 'brightgreen' }
- * renderWebsiteStatus({ isUp: false }) // returns { message: 'down', color: 'red' }
- */
-function renderWebsiteStatus({
-  isUp,
-  upMessage = 'up',
-  downMessage = 'down',
-  upColor = 'brightgreen',
-  downColor = 'red',
-}) {
-  if (isUp) {
-    return { message: upMessage, color: upColor }
-  } else {
-    return { message: downMessage, color: downColor }
+const userStatsSchema = Joi.object({
+  total_downloads: nonNegativeInteger.required(),
+}).required()
+
+class BaseCratesService extends BaseJsonService {
+  static defaultBadgeData = { label: 'crates.io' }
+
+  /**
+   * Fetches data from the crates.io API.
+   *
+   * @param {object} options - The options for the request
+   * @param {string} options.crate - The crate name.
+   * @param {string} [options.version] - The crate version number (optional).
+   * @returns {Promise&lt;object>} the JSON response from the API.
+   */
+  async fetch({ crate, version }) {
+    const url = version
+      ? `https://crates.io/api/v1/crates/${crate}/${version}`
+      : `https://crates.io/api/v1/crates/${crate}?include=versions,downloads`
+    const schema = version ? versionResponseSchema : crateResponseSchema
+    return this._requestJson({ schema, url })
+  }
+
+  static getLatestVersion(response) {
+    return response.crate.max_stable_version
+      ? response.crate.max_stable_version
+      : response.crate.max_version
+  }
+
+  static getVersionObj(response) {
+    if (response.crate) {
+      const version = this.getLatestVersion(response)
+      const versionObj = response.versions.find(v => v.num === version)
+      if (versionObj === undefined) {
+        throw new InvalidResponse({ prettyMessage: 'version not found' })
+      }
+      return versionObj
+    }
+    return response.version
   }
 }
 
-export { queryParamSchema, queryParams, renderWebsiteStatus }
+class BaseCratesUserService extends BaseJsonService {
+  static defaultBadgeData = { label: 'crates.io' }
+
+  /**
+   * Fetches data from the crates.io API.
+   *
+   * @param {object} options - The options for the request
+   * @param {string} options.userId - The user ID.
+   * @returns {Promise&lt;object>} the JSON response from the API.
+   */
+  async fetch({ userId }) {
+    const url = `https://crates.io/api/v1/users/${userId}/stats`
+    return this._requestJson({ schema: userStatsSchema, url })
+  }
+}
+
+const description =
+  '[Crates.io](https://crates.io/) is a package registry for Rust.'
+
+export { BaseCratesService, BaseCratesUserService, description }
 </code></pre>
         </article>
     </section>

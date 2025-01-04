@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: services/website-status.js</title>
+    <title>JSDoc: Module: services/size</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,83 +17,352 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: services/website-status.js</h1>
+    <h1 class="page-title">Module: services/size</h1>
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Commonly used functions and utilities for tasks related to website status.
- *
- * @module
- */
+</header>
 
-import Joi from 'joi'
-import { queryParams as qP } from './index.js'
+<article>
+    <div class="container-overview">
+    
+        
 
-/**
- * Joi schema for validating query params.
- * Checks if the query params object has valid up_message, down_message, up_color and down_color properties.
- *
- * @type {Joi}
- */
-const queryParamSchema = Joi.object({
-  up_message: Joi.string(),
-  down_message: Joi.string(),
-  up_color: Joi.alternatives(Joi.string(), Joi.number()),
-  down_color: Joi.alternatives(Joi.string(), Joi.number()),
-}).required()
+        
 
-/**
- * Array of OpenAPI Parameter Objects describing the
- * up_message, down_message, up_color and down_color
- * query params
- *
- * @type {Array.&lt;module:core/base-service/openapi~OpenApiParam>}
- */
-const queryParams = qP(
-  { name: 'up_message', example: 'online' },
-  { name: 'up_color', example: 'blue' },
-  { name: 'down_message', example: 'offline' },
-  { name: 'down_color', example: 'lightgrey' },
-)
 
-/**
- * Creates a badge object that displays information about website status.
- *
- * @param {object} options - The options for rendering the status
- * @param {boolean} options.isUp - Whether the website or service is up or down
- * @param {string} [options.upMessage='up'] - The message to display when the website or service is up
- * @param {string} [options.downMessage='down'] - The message to display when the website or service is down
- * @param {string} [options.upColor='brightgreen'] - The color to use when the website or service is up
- * @param {string} [options.downColor='red'] - The color to use when the website or service is down
- * @returns {object} An object with a message and a color property
- * @example
- * renderWebsiteStatus({ isUp: true }) // returns { message: 'up', color: 'brightgreen' }
- * renderWebsiteStatus({ isUp: false }) // returns { message: 'down', color: 'red' }
- */
-function renderWebsiteStatus({
-  isUp,
-  upMessage = 'up',
-  downMessage = 'down',
-  upColor = 'brightgreen',
-  downColor = 'red',
-}) {
-  if (isUp) {
-    return { message: upMessage, color: upColor }
-  } else {
-    return { message: downMessage, color: downColor }
-  }
-}
+<dl class="details">
 
-export { queryParamSchema, queryParams, renderWebsiteStatus }
-</code></pre>
-        </article>
-    </section>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="services_size.js.html">services/size.js</a>, <a href="services_size.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~renderSizeBadge"><span class="type-signature">(inner) </span>renderSizeBadge<span class="signature">(bytes, units, label<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Creates a badge object that displays information about a size in bytes number.
+It should usually be used to output a size badge.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>bytes</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>Raw number of bytes to be formatted</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>units</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">'metric'</span>
+|
+
+<span class="param-type">'iec'</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>Either 'metric' (multiples of 1000) or 'iec' (multiples of 1024).
+This should align with how the upstream displays sizes.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>label</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    'size'
+                
+                </td>
+            
+
+            <td class="description last"><p>Custom label</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="services_size.js.html">services/size.js</a>, <a href="services_size.js.html#line17">line 17</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>A badge object that has three properties: label, message, and color</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 
